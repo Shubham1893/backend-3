@@ -43,7 +43,7 @@ export default function Recipeitems() {
 
   // ondelete method to delete 
   const onDelete = async(id)=>{
-    await axios.delete(`http://localhost:4000/recipe/${id}`)
+    await axios.delete(`https://backend-3-a64y.onrender.com/recipe/${id}`)
     .then((res)=>console.log(res))
     setAllRecipes(recipes=>recipes.filter(recipe=>recipe._id !== id))
 
