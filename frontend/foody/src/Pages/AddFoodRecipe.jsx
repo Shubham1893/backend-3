@@ -39,7 +39,7 @@ export default function AddFoodRecipe(){
     const onHandleSubmit= async (e)=>{
         e.preventDefault()
         console.log(recipeData) 
-        await axios.post("https://backend-3-a64y.onrender.com/recipe",recipeData,{
+        await axios.post("https://backend-3-2-f9p5.onrender.com/recipe",recipeData,{
             headers:{
                 'Content-Type':'multipart/form-data',
                'authorization': 'Bearer ' + localStorage.getItem("token")
