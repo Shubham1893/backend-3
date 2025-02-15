@@ -19,7 +19,7 @@ import EditRecipe from './Pages/EditRecipe'
 const getAllRecipes = async()=>{
   
   let allRecipes =[]
-  await axios.get("https://backend-3-2-f9p5.onrender.com/recipe")
+  await axios.get("https://backend-3-t3c0.onrender.com/recipe")
   .then(res=>{
     allRecipes = res.data
   })
