@@ -43,7 +43,7 @@ export default function Recipeitems() {
 
   // ondelete method to delete 
   const onDelete = async(id)=>{
-    await axios.delete(`https://backend-3-2-f9p5.onrender.com/recipe/${id}`)
+    await axios.delete(`https://backend-3-t3c0.onrender.com/recipe/${id}`)
     .then((res)=>console.log(res))
     setAllRecipes(recipes=>recipes.filter(recipe=>recipe._id !== id))
 
@@ -71,7 +71,7 @@ export default function Recipeitems() {
         allRecipes?.map((item, index) => {
           return(
             <div key ={index} className ='card'>
-                <img src ={`https://backend-3-2-f9p5.onrender.com/images/${item.coverImage}`} width="120px" height ="100px"></img>
+                <img src ={`https://backend-3-t3c0.onrender.com/images/${item.coverImage}`} width="120px" height ="100px"></img>
                 <div className='card-body'>
                     <div className='title'>{item.title}</div>
 
