@@ -20,7 +20,7 @@ export default function InputForm({setIsOpen}){
         // on handle submit we will make post request 
         let  endpoint = (isSignUp) ?"signUp" : "login"
 
-        await axios.post(`http://localhost:4000/${endpoint}`,{email,password})
+        await axios.post(`https://backend-3-2-f9p5.onrender.com/${endpoint}`,{email,password})
         .then((res)=>{
 
             // whenever we are post login request it will create token and user and we will store in localstoreage
