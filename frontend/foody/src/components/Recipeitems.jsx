@@ -71,7 +71,7 @@ export default function Recipeitems() {
         allRecipes?.map((item, index) => {
           return(
             <div key ={index} className ='card'>
-                <img src ={`http://localhost:4000/images/${item.coverImage}`} width="120px" height ="100px"></img>
+                <img src ={`https://backend-3-a64y.onrender.com/images/${item.coverImage}`} width="120px" height ="100px"></img>
                 <div className='card-body'>
                     <div className='title'>{item.title}</div>
 
