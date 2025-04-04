@@ -43,10 +43,10 @@
 
 
   // ondelete method to delete 
-  const onDelete = async(id)=>{
-    await axios.delete(`http://localhost:4000/recipe/${id}`)
-    .then((res)=>console.log(res))
-    setAllRecipes(recipes=>recipes.filter(recipe=>recipe._id !== id))
+  // const onDelete = async(id)=>{
+  //   await axios.delete(`http://localhost:4000/recipe/${id}`)
+  //   .then((res)=>console.log(res))
+  //   setAllRecipes(recipes=>recipes.filter(recipe=>recipe._id !== id))
 
 //     let filterItem = favItem.filter(recipe=>recipe._id !==id)
 //     localStorage.setItem("fav",JSON.stringify(filterItem))
