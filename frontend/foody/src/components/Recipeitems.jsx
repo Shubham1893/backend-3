@@ -104,6 +104,83 @@
 //   );
 // }
 
+// import React, { useState, useEffect } from "react";
+// import { IoIosStopwatch } from "react-icons/io";
+// import { FaHeart, FaEdit } from "react-icons/fa";
+// import { MdDelete } from "react-icons/md";
+// import axios from "axios";
+// import { Link, useLoaderData, useNavigate } from "react-router-dom";
+
+// export default function Recipeitems() {
+//   const recipes = useLoaderData();
+//   const [allRecipes, setAllRecipes] = useState();
+//   const navigate = useNavigate();
+
+//   let path = window.location.pathname === "/myRecipe";
+//   let favItem = JSON.parse(localStorage.getItem("fav")) ?? [];
+//   const [isFavRecipe, setIsFavRecipe] = useState(false);
+
+//   useEffect(() => {
+//     setAllRecipes(recipes);
+//   }, [recipes]);
+
+//   const onDelete = async (id) => {
+//     await axios.delete(`http://localhost:4000/recipe/${id}`);
+//     setAllRecipes((recipes) => recipes.filter((recipe) => recipe._id !== id));
+//     let filterItem = favItem.filter((recipe) => recipe._id !== id);
+//     localStorage.setItem("fav", JSON.stringify(filterItem));
+//   };
+
+//   const favRecipe = (item) => {
+//     let filterItem = favItem.filter((recipe) => recipe._id !== item._id);
+//     favItem = favItem.some((res) => res._id === item._id)
+//       ? filterItem
+//       : [...favItem, item];
+//     localStorage.setItem("fav", JSON.stringify(favItem));
+//     setIsFavRecipe((prev) => !prev);
+//   };
+
+//   return (
+//     <>
+//       <div className="card-container">
+//         {
+//         allRecipes?.map((item, index) => {
+//           return(
+//             <div key ={index} className ='card'>
+//                 <img src ={`http://localhost:4000/images/${item.coverImage}`} width="120px" height ="100px"></img>
+//                 <div className='card-body'>
+//                     <div className='title'>{item.title}</div>
+
+//                     <div className="icons">
+//                     <div className="timer"> <IoIosStopwatch /> {item.time}</div>
+
+//                    { (!path) ? <FaHeart onClick={()=>favRecipe(item)}
+//                    style={{color:(favItem.some(res=>res._id=== item._id) )? "red" :""}} 
+//                     />:
+
+//                     <div className='action'>
+
+//                     <Link to={`/editRecipe/${item._id}`} className="editIcon"><FaEdit /></Link>
+
+
+//                     <MdDelete onClick={()=>onDelete(item._id)} className='deleteIcon' />
+
+//                     </div>
+                    
+//                     }
+
+//                </div>    
+//              </div>   
+//             </div>
+//           </div>
+//         ))}
+//       </div>
+//     </>
+//   );
+// }
+
+
+
 import React, { useState, useEffect } from "react";
 import { IoIosStopwatch } from "react-icons/io";
 import { FaHeart, FaEdit } from "react-icons/fa";
@@ -143,34 +220,25 @@ export default function Recipeitems() {
   return (
     <>
       <div className="card-container">
-        {
-        allRecipes?.map((item, index) => {
-          return(
-            <div key ={index} className ='card'>
-                <img src ={`http://localhost:4000/images/${item.coverImage}`} width="120px" height ="100px"></img>
-                <div className='card-body'>
-                    <div className='title'>{item.title}</div>
-
-                    <div className="icons">
-                    <div className="timer"> <IoIosStopwatch /> {item.time}</div>
-
-                   { (!path) ? <FaHeart onClick={()=>favRecipe(item)}
-                   style={{color:(favItem.some(res=>res._id=== item._id) )? "red" :""}} 
-                    />:
-
-                    <div className='action'>
-
+        {allRecipes?.map((item, index) => (
+          <div key={index} className='card'>
+            <img src={`http://localhost:4000/images/${item.coverImage}`} width="120px" height="100px" alt={item.title} />
+            <div className='card-body'>
+              <div className='title'>{item.title}</div>
+              <div className="icons">
+                <div className="timer"><IoIosStopwatch /> {item.time}</div>
+                {!path ? (
+                  <FaHeart
+                    onClick={() => favRecipe(item)}
+                    style={{ color: favItem.some(res => res._id === item._id) ? "red" : "" }}
+                  />
+                ) : (
+                  <div className='action'>
                     <Link to={`/editRecipe/${item._id}`} className="editIcon"><FaEdit /></Link>
-
-
-                    <MdDelete onClick={()=>onDelete(item._id)} className='deleteIcon' />
-
-                    </div>
-                    
-                    }
-
-               </div>    
-             </div>   
+                    <MdDelete onClick={() => onDelete(item._id)} className='deleteIcon' />
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         ))}
