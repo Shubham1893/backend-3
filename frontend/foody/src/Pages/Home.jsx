@@ -7,8 +7,10 @@ import Modal from '../components/Modal'
 
 
 import foodRecipe from '../assets/foodRecipe.png'
+import bg11 from "../assets/bg1.jpg"
 import Recipeitems from '../components/Recipeitems'
 import InputForm from '../components/InputForm';
+import foody22 from "../assets/sec2.jpg"
 
 
 export default function Home(){
@@ -38,9 +40,12 @@ export default function Home(){
         <>
       
         <section className='home'>
+            
+        <img src ={bg11} width="100%"  height="100%"></img>    
         <div className ='left'>
-            <h1>Food Recipe</h1>
-            <h5>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using Content here, content here, making it look like readable</h5>
+            
+            <h1 className="boduu1">Food Recipe</h1>
+            <h5 className="boduu2" >It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. </h5>
 
 
             <button onClick={addRecipe}>
@@ -54,23 +59,27 @@ export default function Home(){
 
         <div className='right'>
 
-        <img src ={foodRecipe} width="320px" height ="300px"></img>
+        {/* <img src ={foodRecipe} width="420px" height ="400px"></img> */}
 
         </div>
+
         </section>
-        <div className='bg'>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-  <path fill="#a2d9ff" fillOpacity="1" d="M0,128L48,117.3C96,107,192,85,288,85.3C384,85,480,107,576,149.3C672,192,768,256,864,272C960,288,1056,256,1152,229.3C1248,203,1344,181,1392,170.7L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
-</svg>
-        </div>
 
-        {(isOpen) &&  <Modal onClose={()=>setIsOpen(false)}><InputForm
-              setIsOpen={()=>setIsOpen(false)}
-              /></Modal>}
 
-        <div className ="recipe">
-            <Recipeitems recipes ={allRecipes}/>
-        </div>
+        
+        
+       <div>
+       <div className="card"><h1>All Recipes </h1></div>
+
+{(isOpen) &&  <Modal onClose={()=>setIsOpen(false)}><InputForm
+      setIsOpen={()=>setIsOpen(false)}
+      /></Modal>}
+
+<div className ="recipe">
+    
+    <Recipeitems recipes ={allRecipes}/>
+</div>
+       </div>
        
         </>
     )

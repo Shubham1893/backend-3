@@ -13,7 +13,7 @@ import AddFoodRecipe from './Pages/AddFoodRecipe'
 import Home from "./Pages/Home";
 import MainNavigation from './components/MainNavigation';
 import EditRecipe from './Pages/EditRecipe'
-
+import RecipeDetail from "./Pages/RecipeDetail";
 
 
 const getAllRecipes = async()=>{
@@ -57,7 +57,9 @@ const router = createBrowserRouter([
     {path:"/myRecipe",element:<Home/>,loader:getMyRecipe},
     {path:"/favRecipe",element:<Home/>,loader:getFavRecipes},
     {path:"/addRecipe",element:<AddFoodRecipe/>},
-    {path:"/editRecipe/:id",element:<EditRecipe/>}
+    {path:"/editRecipe/:id",element:<EditRecipe/>},
+    { path: "/recipe/:id", element: <RecipeDetail /> } 
+    
 
   ]}
   

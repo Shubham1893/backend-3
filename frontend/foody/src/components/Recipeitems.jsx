@@ -1,103 +1,179 @@
-import React from "react";
+// import React from "react";
+// import { Timer, Heart, Edit, Trash2, ChefHat } from "lucide-react";
 
-import { useState,useEffect } from "react";
-import { IoIosStopwatch } from "react-icons/io";
-import { FaHeart } from "react-icons/fa";
-import { FaEdit } from "react-icons/fa";
-import { MdDelete } from "react-icons/md";
-import axios from 'axios'
+// import { useState,useEffect } from "react";
+// import { IoIosStopwatch } from "react-icons/io";
+// import { FaHeart } from "react-icons/fa";
+// import { FaEdit } from "react-icons/fa";
+// import { MdDelete } from "react-icons/md";
+// import axios from 'axios'
 
-import foodImg from '../assets/foodRecipe.png'
-
-
-
-import { Link,useLoaderData } from "react-router-dom";
+// import foodImg from '../assets/foodRecipe.png'
 
 
 
+// import { Link,useLoaderData } from "react-router-dom";
 
 
-export default function Recipeitems() {
 
-  const recipes = useLoaderData();
 
-  const [allRecipes,setAllRecipes] = useState()
 
-  // if it is my recipe then we will give access to edit my recipes
+// export default function Recipeitems() {
 
-  let path = window.location.pathname==="/myRecipe" ?true :false
+//   const recipes = useLoaderData();
 
-  let favItem = JSON.parse(localStorage.getItem("fav"))??[]
-  const [isFavRecipe,setIsFavRecipe] = useState(false)
+//   const [allRecipes,setAllRecipes] = useState()
 
-  console.log(allRecipes);
+//   // if it is my recipe then we will give access to edit my recipes
+
+//   let path = window.location.pathname==="/myRecipe" ?true :false
+
+//   let favItem = JSON.parse(localStorage.getItem("fav"))??[]
+//   const [isFavRecipe,setIsFavRecipe] = useState(false)
+
+//   console.log(allRecipes);
   
 
 
-  useEffect(()=>{
+//   useEffect(()=>{
 
-  setAllRecipes(recipes)
+//   setAllRecipes(recipes)
 
-  },[recipes])
-
-
-  // ondelete method to delete 
-  const onDelete = async(id)=>{
-    await axios.delete(`http://localhost:4000/recipe/${id}`)
-    .then((res)=>console.log(res))
-    setAllRecipes(recipes=>recipes.filter(recipe=>recipe._id !== id))
-
-    let filterItem = favItem.filter(recipe=>recipe._id !==id)
-    localStorage.setItem("fav",JSON.stringify(filterItem))
-  }
+//   },[recipes])
 
 
+//   // ondelete method to delete 
+//   const onDelete = async(id)=>{
+//     await axios.delete(`http://localhost:4000/recipe/${id}`)
+//     .then((res)=>console.log(res))
+//     setAllRecipes(recipes=>recipes.filter(recipe=>recipe._id !== id))
 
-  // for add into favourite recipes
- const favRecipe=(item)=>{
+//     let filterItem = favItem.filter(recipe=>recipe._id !==id)
+//     localStorage.setItem("fav",JSON.stringify(filterItem))
+//   }
 
-  let filterItem = favItem.filter(recipe=>recipe._id !== item._id)
-  favItem = favItem.filter(recipe=>recipe._id === item._id).length===0 ? [...favItem,item] :filterItem
-  localStorage.setItem("fav",JSON.stringify(favItem))
-  setIsFavRecipe(pre=>!pre)
 
- }
 
+//   // for add into favourite recipes
+//  const favRecipe=(item)=>{
+
+//   let filterItem = favItem.filter(recipe=>recipe._id !== item._id)
+//   favItem = favItem.filter(recipe=>recipe._id === item._id).length===0 ? [...favItem,item] :filterItem
+//   localStorage.setItem("fav",JSON.stringify(favItem))
+//   setIsFavRecipe(pre=>!pre)
+
+//  }
+
+
+//   return (
+//     <>
+//       <div className="card-container">
+//         {
+//         allRecipes?.map((item, index) => {
+//           return(
+//             <div key ={index} className ='card'>
+//                 <img src ={`http://localhost:4000/images/${item.coverImage}`} width="210px" height ="120px"></img>
+//                 <div className='card-body'>
+//                     <div className='title' >{item.title}</div>
+
+//                     <div className="icons">
+//                     <div className="timer"> <IoIosStopwatch /> {item.time}</div>
+
+//                    { (!path) ? <FaHeart onClick={()=>favRecipe(item)}
+//                    style={{color:(favItem.some(res=>res._id=== item._id) )? "red" :""}} 
+//                     />:
+
+//                     <div className='action'>
+
+//                     <Link to={`/editRecipe/${item._id}`} className="editIcon"><FaEdit /></Link>
+
+
+//                     <MdDelete onClick={()=>onDelete(item._id)} className='deleteIcon' />
+
+//                     </div>
+                    
+//                     }
+
+//                </div>    
+//              </div>   
+//             </div>
+//           )
+//         })}
+//       </div>
+//     </>
+//   );
+// }
+
+import React, { useState, useEffect } from "react";
+import { IoIosStopwatch } from "react-icons/io";
+import { FaHeart, FaEdit } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
+import axios from "axios";
+import { Link, useLoaderData, useNavigate } from "react-router-dom";
+
+export default function Recipeitems() {
+  const recipes = useLoaderData();
+  const [allRecipes, setAllRecipes] = useState();
+  const navigate = useNavigate();
+
+  let path = window.location.pathname === "/myRecipe";
+  let favItem = JSON.parse(localStorage.getItem("fav")) ?? [];
+  const [isFavRecipe, setIsFavRecipe] = useState(false);
+
+  useEffect(() => {
+    setAllRecipes(recipes);
+  }, [recipes]);
+
+  const onDelete = async (id) => {
+    await axios.delete(`http://localhost:4000/recipe/${id}`);
+    setAllRecipes((recipes) => recipes.filter((recipe) => recipe._id !== id));
+    let filterItem = favItem.filter((recipe) => recipe._id !== id);
+    localStorage.setItem("fav", JSON.stringify(filterItem));
+  };
+
+  const favRecipe = (item) => {
+    let filterItem = favItem.filter((recipe) => recipe._id !== item._id);
+    favItem = favItem.some((res) => res._id === item._id)
+      ? filterItem
+      : [...favItem, item];
+    localStorage.setItem("fav", JSON.stringify(favItem));
+    setIsFavRecipe((prev) => !prev);
+  };
 
   return (
     <>
       <div className="card-container">
-        {
-        allRecipes?.map((item, index) => {
-          return(
-            <div key ={index} className ='card'>
-                <img src ={`http://localhost:4000/images/${item.coverImage}`} width="120px" height ="100px"></img>
-                <div className='card-body'>
-                    <div className='title'>{item.title}</div>
-
-                    <div className="icons">
-                    <div className="timer"> <IoIosStopwatch /> {item.time}</div>
-
-                   { (!path) ? <FaHeart onClick={()=>favRecipe(item)}
-                   style={{color:(favItem.some(res=>res._id=== item._id) )? "red" :""}} 
-                    />:
-
-                    <div className='action'>
-
-                    <Link to={`/editRecipe/${item._id}`} className="editIcon"><FaEdit /></Link>
-
-
-                    <MdDelete onClick={()=>onDelete(item._id)} className='deleteIcon' />
-
-                    </div>
-                    
-                    }
-
-               </div>    
-             </div>   
+        {allRecipes?.map((item, index) => (
+          <div key={index} className="card">
+            <img
+              src={`http://localhost:4000/images/${item.coverImage}`}
+              width="210px"
+              height="120px"
+              onClick={() => navigate(`/recipe/${item._id}`)}
+            />
+            <div className="card-body">
+              <div className="title">{item.title}</div>
+              <div className="icons">
+                <div className="timer">
+                  <IoIosStopwatch /> {item.time}
+                </div>
+                {!path ? (
+                  <FaHeart
+                    onClick={() => favRecipe(item)}
+                    style={{ color: favItem.some((res) => res._id === item._id) ? "red" : "" }}
+                  />
+                ) : (
+                  <div className="action">
+                    <Link to={`/editRecipe/${item._id}`} className="editIcon">
+                      <FaEdit />
+                    </Link>
+                    <MdDelete onClick={() => onDelete(item._id)} className="deleteIcon" />
+                  </div>
+                )}
+              </div>
             </div>
-          )
-        })}
+          </div>
+        ))}
       </div>
     </>
   );
