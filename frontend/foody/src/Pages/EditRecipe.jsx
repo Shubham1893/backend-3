@@ -25,7 +25,7 @@ export default function EditRecipe(){
 
     useEffect(()=>{
         const getData = async()=>{
-            await axios.get(`http://localhost:4000/recipe/${id}`)
+            await axios.get(`https://backend-3-t3c0.onrender.com/recipe/${id}`)
             .then(response=>{
                 let res = response.data
                 setRecipeData({
@@ -61,7 +61,7 @@ export default function EditRecipe(){
     const onHandleSubmit= async (e)=>{
         e.preventDefault()
         console.log(recipeData) 
-        await axios.put(`http://localhost:4000/recipe/${id}`,recipeData,{
+        await axios.put(`https://backend-3-t3c0.onrender.com/recipe/${id}`,recipeData,{
             headers:{
                 'Content-Type':'multipart/form-data',
                'authorization': 'Bearer ' + localStorage.getItem("token")

@@ -42,11 +42,11 @@
 //   },[recipes])
 
 
-//   // ondelete method to delete 
-//   const onDelete = async(id)=>{
-//     await axios.delete(`http://localhost:4000/recipe/${id}`)
-//     .then((res)=>console.log(res))
-//     setAllRecipes(recipes=>recipes.filter(recipe=>recipe._id !== id))
+  // ondelete method to delete 
+  const onDelete = async(id)=>{
+    await axios.delete(`http://localhost:4000/recipe/${id}`)
+    .then((res)=>console.log(res))
+    setAllRecipes(recipes=>recipes.filter(recipe=>recipe._id !== id))
 
 //     let filterItem = favItem.filter(recipe=>recipe._id !==id)
 //     localStorage.setItem("fav",JSON.stringify(filterItem))
@@ -143,34 +143,34 @@ export default function Recipeitems() {
   return (
     <>
       <div className="card-container">
-        {allRecipes?.map((item, index) => (
-          <div key={index} className="card">
-            <img
-              src={`http://localhost:4000/images/${item.coverImage}`}
-              width="210px"
-              height="120px"
-              onClick={() => navigate(`/recipe/${item._id}`)}
-            />
-            <div className="card-body">
-              <div className="title">{item.title}</div>
-              <div className="icons">
-                <div className="timer">
-                  <IoIosStopwatch /> {item.time}
-                </div>
-                {!path ? (
-                  <FaHeart
-                    onClick={() => favRecipe(item)}
-                    style={{ color: favItem.some((res) => res._id === item._id) ? "red" : "" }}
-                  />
-                ) : (
-                  <div className="action">
-                    <Link to={`/editRecipe/${item._id}`} className="editIcon">
-                      <FaEdit />
-                    </Link>
-                    <MdDelete onClick={() => onDelete(item._id)} className="deleteIcon" />
-                  </div>
-                )}
-              </div>
+        {
+        allRecipes?.map((item, index) => {
+          return(
+            <div key ={index} className ='card'>
+                <img src ={`http://localhost:4000/images/${item.coverImage}`} width="120px" height ="100px"></img>
+                <div className='card-body'>
+                    <div className='title'>{item.title}</div>
+
+                    <div className="icons">
+                    <div className="timer"> <IoIosStopwatch /> {item.time}</div>
+
+                   { (!path) ? <FaHeart onClick={()=>favRecipe(item)}
+                   style={{color:(favItem.some(res=>res._id=== item._id) )? "red" :""}} 
+                    />:
+
+                    <div className='action'>
+
+                    <Link to={`/editRecipe/${item._id}`} className="editIcon"><FaEdit /></Link>
+
+
+                    <MdDelete onClick={()=>onDelete(item._id)} className='deleteIcon' />
+
+                    </div>
+                    
+                    }
+
+               </div>    
+             </div>   
             </div>
           </div>
         ))}
